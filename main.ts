@@ -3,6 +3,13 @@ namespace SpriteKind {
     export const jugador2 = SpriteKind.create()
     export const bola = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.bola, SpriteKind.jugador2, function (sprite, otherSprite) {
+    velocidad_X = -0.5
+})
+sprites.onOverlap(SpriteKind.bola, SpriteKind.jugador1, function (sprite, otherSprite) {
+    velocidad_X = 0.5
+})
+let velocidad_X = 0
 scene.setBackgroundColor(1)
 tiles.setTilemap(tiles.createTilemap(hex`0a0008000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000010000000000000000000100000000000000000001000000000000000000010000000000`, img`
     . . . . . . . . . . 
@@ -49,11 +56,24 @@ jugador2.x = 150
 info.player1.setScore(0)
 info.player2.setScore(0)
 controller.moveSprite(jugador1, 0, 100)
+velocidad_X = 0.5
+let velocidad_Y = 0.3
 game.onUpdate(function () {
     if (controller.A.isPressed()) {
         jugador2.y += -2
     }
     if (controller.B.isPressed()) {
         jugador2.y += 2
+    }
+})
+// Movimiento de la bola
+game.onUpdate(function () {
+    bola.x += velocidad_X
+    bola.y += velocidad_Y
+    if (bola.y >= scene.screenHeight()) {
+        velocidad_Y = -0.3
+    }
+    if (bola.y <= 2) {
+        velocidad_Y = 0.3
     }
 })
