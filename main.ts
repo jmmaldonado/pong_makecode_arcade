@@ -13,6 +13,7 @@ function sacar_bola (sentido: number) {
     bola.setPosition(80, 60)
     velocidad_X = 0.5 * sentido
     velocidad_Y = 0.3
+    music.baDing.play()
 }
 let velocidad_Y = 0
 let velocidad_X = 0
